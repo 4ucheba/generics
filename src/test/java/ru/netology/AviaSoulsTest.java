@@ -3,6 +3,7 @@ package ru.netology;
 import ru.netology.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import ru.netology.AviaSouls;
 
 import java.util.Arrays;
 
@@ -14,6 +15,9 @@ public class AviaSoulsTest {
     Ticket ticket3 = new Ticket("Париж", "Рим", 3_000, 15, 17);
     Ticket ticket4 = new Ticket("Рим", "Лондон", 4_000, 20, 23);
     Ticket ticket5 = new Ticket("Париж", "Лондон", 5_000, 7, 12);
+
+    Ticket ticket6 = new Ticket("Москва", "Париж", 2_000, 4, 7);
+
 
 
     @Test
@@ -33,7 +37,7 @@ public class AviaSoulsTest {
     }
 
     @Test
-    public void shouldSearchAndSort() {
+    public void shouldSort() {
         AviaSouls souls = new AviaSouls();
         souls.add(ticket1);
         souls.add(ticket2);
@@ -76,7 +80,7 @@ public class AviaSoulsTest {
     }
 
     @Test
-    public void shouldSearchAndSortByTimeFlight() {
+    public void shouldSortByTimeFlight() {
         AviaSouls souls = new AviaSouls();
         souls.add(ticket1);
         souls.add(ticket2);
@@ -93,4 +97,57 @@ public class AviaSoulsTest {
 
         Assertions.assertArrayEquals(expected, tickets);
     }
+    @Test
+    public void shouldSearchFindOne() {
+        AviaSouls souls = new AviaSouls();
+        souls.add(ticket1);
+        souls.add(ticket2);
+        souls.add(ticket3);
+        souls.add(ticket4);
+        souls.add(ticket5);
+        souls.add(ticket6);
+
+        Ticket[] tickets = {ticket1, ticket2, ticket3, ticket4, ticket5, ticket6};
+        Ticket[] actual = souls.search("Москва", "Лондон");
+
+        Ticket[] expected = {ticket2};
+
+        Assertions.assertArrayEquals(expected, actual);
+    }
+    @Test
+    public void shouldSearchFindTwo() {
+        AviaSouls souls = new AviaSouls();
+        souls.add(ticket1);
+        souls.add(ticket2);
+        souls.add(ticket3);
+        souls.add(ticket4);
+        souls.add(ticket5);
+        souls.add(ticket6);
+
+        Ticket[] tickets = {ticket1, ticket2, ticket3, ticket4, ticket5, ticket6};
+        Ticket[] actual = souls.search("Москва", "Париж");
+
+        Ticket[] expected = {ticket1, ticket6};
+
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldSearchFindZero() {
+        AviaSouls souls = new AviaSouls();
+        souls.add(ticket1);
+        souls.add(ticket2);
+        souls.add(ticket3);
+        souls.add(ticket4);
+        souls.add(ticket5);
+        souls.add(ticket6);
+
+        Ticket[] tickets = {ticket1, ticket2, ticket3, ticket4, ticket5, ticket6};
+        Ticket[] actual = souls.search("Москва", "Рим");
+
+        Ticket[] expected = {};
+
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
 }
